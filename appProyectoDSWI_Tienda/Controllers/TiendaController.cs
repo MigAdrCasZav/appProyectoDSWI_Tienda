@@ -15,15 +15,15 @@ namespace appProyectoDSWI_Tienda.Controllers
         // GET: Tienda
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
 
-        List<ProductoA> ListProductos()
+        List<ProductoB> ListProductos()
         {
-            List<ProductoA> aProductos = new List<ProductoA>();
+            List<ProductoB> aProductoBs = new List<ProductoB>();
             SqlCommand cmd = new SqlCommand("SP_LISTAPARCIALPRODUCTO", cn);
             cn.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                aProductos.Add(new ProductoA()
+                aProductoBs.Add(new ProductoB()
                 {
                     codigo = int.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
@@ -33,7 +33,7 @@ namespace appProyectoDSWI_Tienda.Controllers
             }
             dr.Close();
             cn.Close();
-            return aProductos;
+            return aProductoBs;
         }
 
         public ActionResult Index()
@@ -52,7 +52,7 @@ namespace appProyectoDSWI_Tienda.Controllers
 
         public ActionResult seleccionaProducto(int id)
         {
-            ProductoA objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
+            ProductoB objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
             return View(objP);
         }
 

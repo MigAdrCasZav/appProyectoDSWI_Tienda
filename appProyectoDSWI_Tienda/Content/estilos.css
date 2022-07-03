@@ -153,3 +153,9 @@ footer {
     width: 40%;
     padding: 5px;
 }
+
+.imgfoto {
+    width: 60px;
+    height: 60px;
+    border: 1px;
+}

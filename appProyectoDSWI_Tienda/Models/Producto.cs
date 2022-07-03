@@ -15,9 +15,9 @@ namespace appProyectoDSWI_Tienda.Models
         [DisplayName("DESCRIPCION")]
         public string descripcion { get; set; }
         [DisplayName("FABRICANTE")]
-        public int fabricante { get; set; }
+        public string fabricante { get; set; }
         [DisplayName("CATEGORIA")]
-        public int categoria { get; set; }
+        public string categoria { get; set; }
         [DisplayName("PRECIO S/")]
         public double precio { get; set; }
         [DisplayName("FOTO")]
