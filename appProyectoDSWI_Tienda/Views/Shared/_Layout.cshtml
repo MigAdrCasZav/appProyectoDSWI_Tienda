@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title> @Styles.Render("~/Content/css") @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <ul>
+                <li>@Html.ActionLink("PRINCIPAL", "Index", "Tienda")</li>
+                <li>
+                    CLIENTE
+                    <ul>
+                        <li>LISTADO DE CLIENTES</li>
+                        <li>REGISTRO DE CLIENTE</li>
+                    </ul>
+                </li>
+                <li>
+                    CATEGORIA
+                    <ul>
+                        <li>LISTA DE CATEGORIAS</li>
+                        <li>REGISTRO DE CATEGORIAS</li>
+                    </ul>
+                </li>
+                <li>
+                    FABRICANTE
+                    <ul>
+                        <li>LISTA DE FABRICANTES</li>
+                        <li>NUEVO FABRICANTE</li>
+                    </ul>
+                </li>
+                <li>
+                    PRODUCTO
+                    <ul>
+                        <li>LISTA DE PRODUCTOS</li>
+                        <li>REGISTRO DE PRODUCTO</li>
+                    </ul>
+                </li>
+                <li>
+                    COMPRAS
+                    <ul>
+                        <li>@Html.ActionLink("GENERAR VENTA", "carritoCompras", "Tienda")</li>
+                        <li>LISTADO DE FACTURAS</li>
+                    </ul>
+                </li>
+                <li>
+                    CERRAR SESIÓN
+                </li>
+                <li>@Html.ActionLink("CERRAR SESIÓN", "cerrarSesion", "Home") </li>
+            </ul>
+        </nav>
+    </header> @RenderBody()
+    <footer>
+        <h6>Todos los derechos reservados - Cibertec 2022</h6>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*RenderSection("scripts", required: false)*@
+</body>
+</html>
+

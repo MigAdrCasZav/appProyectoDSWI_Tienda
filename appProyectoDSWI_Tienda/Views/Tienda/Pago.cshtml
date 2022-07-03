@@ -1,0 +1,21 @@
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Item>
+
+@{
+    ViewBag.Title = "Pago";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<h5>
+    @Html.ActionLink("Retornar", "carritoCompras", "", new { @class = "btn btn-success" })
+</h5>
+<section class="panel panel-primary">
+    <section class="panel-heading">
+        CONFIRMAR COMPRA
+    </section>
+    <section class="panel-body">
+        @using (Html.BeginForm("Final", "Tienda"))
+        {
+            @Html.ActionLink("ACEPTAR", "Final", "", new { @class = "btn btn-success" })
+        } @Html.Partial("_partialComprar") <div id="monto">MONTO TOTAL S/ @(((decimal)ViewBag.mt).ToString("0.00"))</div>
+    </section>
+</section>

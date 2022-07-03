@@ -1,0 +1,12 @@
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.ProductoA>
+
+@{
+    ViewBag.Title = "carritoCompras";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<h2>CARRITO DE COMPRAS</h2>
+<p>
+    @Html.ActionLink("Realizar Compra", "Comprar", null, new { @class = "btn btn-success" })
+</p> @Html.Partial("_partialProducto");
+

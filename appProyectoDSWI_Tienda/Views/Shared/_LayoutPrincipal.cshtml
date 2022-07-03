@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title> @Styles.Render("~/Content/css")
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <ul>
+                <li>@Html.ActionLink("PRINCIPAL", "Index", "Tienda")</li>
+                <li>
+                    CLIENTE
+                    <ul>
+                        <li>LISTADO DE CLIENTES</li>
+                        <li>REGISTRO DE CLIENTE</li>
+                    </ul>
+                </li>
+                <li>
+                    CATEGORIA
+                    <ul>
+                        <li>LISTA DE CATEGORIAS</li>
+                        <li>REGISTRO DE CATEGORIAS</li>
+                    </ul>
+                </li>
+                <li>
+                    FABRICANTE
+                    <ul>
+                        <li>LISTA DE FABRICANTES</li>
+                        <li>NUEVO FABRICANTE</li>
+                    </ul>
+                </li>
+                <li>
+                    PRODUCTO
+                    <ul>
+                        <li>LISTA DE PRODUCTOS</li>
+                        <li>REGISTRO DE PRODUCTO</li>
+                    </ul>
+                </li>
+                <li>
+                    COMPRAS
+                    <ul>
+                        <li>@Html.ActionLink("GENERAR VENTA", "carritoCompras", "Tienda")</li>
+                        <li>LISTADO DE FACTURAS</li>
+                    </ul>
+                </li>
+                <li>
+                    CERRAR SESIÓN
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <figure>
+        <img id="banner" src="~/Imagenes/banner.jpg" />
+    </figure> @RenderBody()
+    <footer>
+        <h6>Todos los derechos reservados - Cibertec 2022</h6>
+    </footer>
+</body>
+</html>

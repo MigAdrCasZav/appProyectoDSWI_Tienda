@@ -1,0 +1,57 @@
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Item>
+
+<style>
+    .imgArtPeq {
+        width: 40px;
+        height: 45px;
+        float: left;
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subtotal)
+        </th>
+        <th></th>
+    </tr> @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.subtotal)
+            </td>
+            <td>
+                <img class="imgArtPeq" src=@Url.Content(item.foto) />
+            </td>
+            <td>
+                @Html.ActionLink("ELIMINAR", "eliminaProducto", new { id = item.codigo },
+           new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+</table>

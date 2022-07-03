@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<h4>Bienvenido - Seleccione un modulo para iniciar</h4>
+<section id="columna">
+    <table>
+        <tr>
+            <td><img id="logo" src="~/Imagenes/cliente.png" /></td>
+            <td>
+                CLIENTES<br /> <br />Agregar - Listar
+            </td>
+        </tr>
+    </table>
+</section>
+<section id="columna">
+    <table>
+        <tr>
+            <td><img id="logo" src="~/Imagenes/categoria.png" /></td>
+            <td>
+                CATEGORIA<br /> <br />Agregar - Listar
+            </td>
+        </tr>
+    </table>
+</section>
+<section id="columna">
+    <table>
+        <tr>
+            <td><img id="logo" src="~/Imagenes/fabricante.jpeg" /></td>
+            <td>
+                FABRICANTE<br /> <br />Agregar - Listar
+            </td>
+        </tr>
+    </table>
+</section>
+<section id="columna">
+    <table>
+        <tr>
+            <td><img id="logo" src="~/Imagenes/productos.png" /></td>
+            <td>
+                PRODUCTO<br /> <br />Agregar - Listar
+            </td>
+        </tr>
+    </table>
+</section>
+<section id="columna">
+    <table>
+        <tr>
+            <td><img id="logo" src="~/Imagenes/ventas.jpg" /></td>
+            <td>
+                VENTA<br /> <br />
+                @Html.ActionLink("Agregar", "carritoCompras", "Tienda") - Listar - Buscar
+            </td>
+        </tr>
+    </table>
+</section>
+
+
+

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Item>
+
+@{
+    ViewBag.Title = "Comprar";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<section class="panel panel-primary">
+    <section class="panel panel-heading">
+        PROCESO DE COMPRA DE PRODUCTOS
+    </section> @Html.Partial("_partialComprar")
+    <section id="monto">
+        TOTAL A PAGAR S/ @(((decimal)ViewBag.monto).ToString("0.00"))
+    </section>
+    <section>
+        @Html.ActionLink("< Retornar", "carritoCompras", null, new { @class = "btn btn-success" }) @Html.ActionLink("Pagar", "Pago", null, new { @class = "btn btn-danger" })
+    </section>
+</section>

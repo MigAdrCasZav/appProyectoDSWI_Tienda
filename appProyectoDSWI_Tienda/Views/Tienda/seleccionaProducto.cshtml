@@ -1,0 +1,34 @@
+﻿@model appProyectoDSWI_Tienda.Models.ProductoA
+
+@{
+    ViewBag.Title = "seleccionaProducto";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<section id="columna1">
+    @Html.Partial("_PartialRegistro")
+</section>
+<section id="columna2">
+    @using (Html.BeginForm("agregarProducto", "Tienda"))
+    {
+        <section class="panel panel-primary">
+            <section class="panel-heading">
+                PROCESO DE SELECCIÓN
+            </section>
+            <section class="panel-body">
+                @Html.Hidden("id", Model.codigo, new
+                {
+                    placeholder = "(Texto de búsqueda)", @class = "form-control"
+                })
+                <h5>INGRESE CANTIDAD</h5> @Html.TextBox("cant", "", new
+                {
+                    placeholder = "(Texto de búsqueda)", @class = "form-control"
+                })
+                @Html.ActionLink("CANCELAR", "carritoCompras", "",
+                new { @class = "btn btn-primary" })
+                <input type="submit" value="ACEPTAR" class="btn btn-danger" />
+            </section>
+        </section>
+    }
+</section>
+
