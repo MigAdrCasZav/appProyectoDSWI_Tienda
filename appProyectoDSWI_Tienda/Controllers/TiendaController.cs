@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using appProyectoDSWI_Tienda.Models;
-using System.Configuration;
 
 namespace appProyectoDSWI_Tienda.Controllers
 {

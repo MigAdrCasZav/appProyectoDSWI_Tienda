@@ -195,6 +195,7 @@
     <Content Include="Imagenes\categoria.png" />
     <Content Include="Imagenes\cliente.png" />
     <Content Include="Imagenes\fabricante.jpeg" />
+    <Content Include="Imagenes\pago.jpg" />
     <Content Include="Imagenes\productos.png" />
     <Content Include="Imagenes\ventas.jpg" />
     <Content Include="Scripts\bootstrap.js" />
