@@ -10,7 +10,7 @@
 }
 
 h2, h4, h6 {
-    font-family: Tahoma;
+    font-family: Arial;
     text-align: center;
 }
 
@@ -21,7 +21,7 @@ h2, h4, h6 {
     height: 5%;
     display: flex;
     color: white;
-    background-color: darkcyan;
+    background-color: midnightblue;
 }
 
     .menu ul {
@@ -51,7 +51,7 @@ h2, h4, h6 {
     .menu ul li:hover > ul {
         transform: rotateY(0deg) scale(1);
         transition: all 1s;
-        background-color: darkolivegreen;
+        background-color: black;
     }
 
 a {
@@ -70,12 +70,12 @@ table {
 }
 
 footer {
-    background-color: darkcyan;
+    background-color: midnightblue;
     position: fixed;
     padding: 0px;
     bottom: 0px;
     width: 1370px;
-    height: 25px;
+    height: 45px;
     color: white;
 }
 
