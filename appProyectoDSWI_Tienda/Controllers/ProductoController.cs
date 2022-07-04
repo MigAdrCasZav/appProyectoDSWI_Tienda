@@ -111,8 +111,8 @@ namespace appProyectoDSWI_Tienda.Controllers
 
         public ActionResult nuevoProducto()
         {
-            ViewBag.fabricante = new SelectList(listFabricanteAs(), "codigo", "nombre");
-            ViewBag.categoria = new SelectList(listCategoria(), "codigo", "nombre");
+            ViewBag.fabricante = new SelectList(listFabricanteAs(), "idFabr", "nomFabr");
+            ViewBag.categoria = new SelectList(listCategoria(), "idCateg", "nomCateg");
             return View(new ProductoA());
         }
 

@@ -7,7 +7,7 @@
 
 <h2>REGISTRO DE FABRICANTE</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("nuevoFabricante", "Fabricante", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     

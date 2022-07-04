@@ -75,7 +75,7 @@ namespace appProyectoDSWI_Tienda.Controllers
 
         public ActionResult nuevoFabricante()
         {
-            ViewBag.pais = new SelectList(listPais(), "codigo", "nombre");
+            ViewBag.pais = new SelectList(listPais(), "idPais", "nomPais");
             return View(new FabricanteA());
         }
 

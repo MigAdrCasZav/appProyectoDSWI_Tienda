@@ -20,7 +20,7 @@
         <tr>
             <td><img id="logo" src="~/Imagenes/categoria.png" /></td>
             <td>
-                CATEGORIA<br /> <br />Agregar - Listar
+                CATEGORIA<br /> <br />@Html.ActionLink("Agregar", "nuevoCategoria", "Categoria") - @Html.ActionLink("Listar", "nuevoCategoria", "Categoria")
             </td>
         </tr>
     </table>
@@ -30,7 +30,7 @@
         <tr>
             <td><img id="logo" src="~/Imagenes/fabricante.jpeg" /></td>
             <td>
-                FABRICANTE<br /> <br />Agregar - Listar
+                FABRICANTE<br /> <br />@Html.ActionLink("Agregar", "nuevoFabricante", "Fabricante") - @Html.ActionLink("Listar", "listadoFabricantes", "Fabricante")
             </td>
         </tr>
     </table>
@@ -40,7 +40,7 @@
         <tr>
             <td><img id="logo" src="~/Imagenes/productos.png" /></td>
             <td>
-                PRODUCTO<br /> <br />Agregar - @Html.ActionLink("Listar", "listadoProductos", "Producto")
+                PRODUCTO<br /> <br />@Html.ActionLink("Agregar", "nuevoProducto", "Producto") - @Html.ActionLink("Listar", "listadoProductos", "Producto")
             </td>
         </tr>
     </table>
