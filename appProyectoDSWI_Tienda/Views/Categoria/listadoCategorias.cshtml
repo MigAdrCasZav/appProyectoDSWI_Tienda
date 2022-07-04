@@ -1,0 +1,41 @@
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Categoria>
+
+@{
+    ViewBag.Title = "listadoCategorias";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<h2>LISTA DE CATEGORIAS</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idCateg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomCateg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.desCateg)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.idCateg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomCateg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.desCateg)
+        </td>
+    </tr>
+}
+
+</table>

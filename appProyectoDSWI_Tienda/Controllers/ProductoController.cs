@@ -111,7 +111,6 @@ namespace appProyectoDSWI_Tienda.Controllers
 
         public ActionResult nuevoProducto()
         {
-            ViewBag.ultimo = listarProductos().Last().codigo + 1;
             ViewBag.fabricante = new SelectList(listFabricanteAs(), "codigo", "nombre");
             ViewBag.categoria = new SelectList(listCategoria(), "codigo", "nombre");
             return View(new ProductoA());
