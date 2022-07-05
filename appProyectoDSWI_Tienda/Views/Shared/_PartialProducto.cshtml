@@ -1,8 +1,8 @@
-﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.ProductoB>
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Producto>
 @foreach (var item in Model)
 {
     <section class="bloque">
-        <img class="imgArt" src="@Url.Content(item.foto)" /><br /> <strong>CODIGO: </strong> @item.codigo <br /> <strong>PRODUCTO: </strong> @item.nombre<br /> <strong>PRECIO: S/ </strong> @item.precio <br />
+        <img class="imgArt" src="@Url.Content(item.foto)" /><br /> <strong>CODIGO: </strong> @item.codigo <br /> <strong>PRODUCTO: </strong> @item.nombre<br /> <strong>FABRICANTE: </strong> @item.fabricante <br /> <strong>CATEGORIA: </strong> @item.categoria <br /> <strong>PRECIO: S/ </strong> @item.precio <br />
         @Html.ActionLink("Adquirir", "seleccionaProducto", new { id = item.codigo },
         new { @class = "btn btn-warning" })
     </section>
