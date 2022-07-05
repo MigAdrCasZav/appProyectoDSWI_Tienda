@@ -16,27 +16,25 @@ namespace appProyectoDSWI_Tienda.Controllers
         // GET: Tienda
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
 
-        List<Producto> ListProductos()
+        List<ProductoB> ListProductos()
         {
-            List<Producto> aProductos = new List<Producto>();
+            List<ProductoB> aProductoBs = new List<ProductoB>();
             SqlCommand cmd = new SqlCommand("SP_LISTAPARCIALPRODUCTO", cn);
             cn.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                aProductos.Add(new Producto()
+                aProductoBs.Add(new ProductoB()
                 {
                     codigo = int.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
-                    fabricante = dr[2].ToString(),
-                    categoria = dr[3].ToString(),
-                    precio = double.Parse(dr[4].ToString()),
-                    foto = dr[5].ToString()
+                    precio = double.Parse(dr[2].ToString()),
+                    foto = dr[3].ToString()
                 });
             }
             dr.Close();
             cn.Close();
-            return aProductos;
+            return aProductoBs;
         }
 
         public ActionResult Index()
@@ -55,7 +53,7 @@ namespace appProyectoDSWI_Tienda.Controllers
 
         public ActionResult seleccionaProducto(int id)
         {
-            Producto objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
+            ProductoB objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
             return View(objP);
         }
 
@@ -66,8 +64,6 @@ namespace appProyectoDSWI_Tienda.Controllers
             {
                 codigo = miProducto.codigo,
                 nombre = miProducto.nombre,
-                fabricante = miProducto.fabricante,
-                categoria=miProducto.categoria,
                 precio = miProducto.precio,
                 cantidad = cant,
                 foto = miProducto.foto
@@ -120,7 +116,6 @@ namespace appProyectoDSWI_Tienda.Controllers
 
             }
             ViewBag.mt = mt;
-
             return View();
         }
     }
