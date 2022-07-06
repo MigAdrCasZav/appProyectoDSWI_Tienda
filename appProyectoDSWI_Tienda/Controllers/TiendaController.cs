@@ -7,15 +7,67 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using appProyectoDSWI_Tienda.Logica;
 using appProyectoDSWI_Tienda.Models;
+using appProyectoDSWI_Tienda.Permisos;
+using System.Web.Security;
 
 namespace appProyectoDSWI_Tienda.Controllers
 {
     public class TiendaController : Controller
     {
-        // GET: Tienda
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
 
+        // GET: Tienda
+
+        // Inicio
+        [Authorize]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        // Login del Proyecto
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // Login del Proyecto
+        [HttpPost]
+        public ActionResult Login(string correo, string clave)
+        {
+            Usuario objU = new LO_Usuario().EncontrarUsuario(correo, clave);
+
+            if (objU.nomUsuario != null)
+            {
+                FormsAuthentication.SetAuthCookie(objU.emailUsuario, false);
+                Session["Usuario"] = objU;
+                return RedirectToAction("Index", "Tienda");
+            }
+            return View();
+        }
+
+        // Sin Autorizacion
+        [Authorize]
+        public ActionResult SinAutorizacion()
+        {
+            ViewBag.Message = "Usted no cuenta con autorización para ver esta pagina";
+
+            return View();
+        }
+
+        // Cerrar Sesion
+        public ActionResult CerrarSesion()
+        {
+            FormsAuthentication.SignOut();
+            Session["Usuario"] = null;
+            return RedirectToAction("Login", "Tienda");
+        }
+
+        // Listado de Productos para el Carrito de Compras
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         List<Producto> ListProductos()
         {
             List<Producto> aProductos = new List<Producto>();
@@ -39,11 +91,9 @@ namespace appProyectoDSWI_Tienda.Controllers
             return aProductos;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        // Carrito de Compras
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult carritoCompras()
         {
             if (Session["carrito"] == null)
@@ -53,12 +103,18 @@ namespace appProyectoDSWI_Tienda.Controllers
             return View(ListProductos());
         }
 
+        // Seleccion de Productos
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult seleccionaProducto(int id)
         {
             Producto objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
             return View(objP);
         }
 
+        // Adicion de Productos
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult agregarProducto(int id, int cant = 0)
         {
             var miProducto = ListProductos().Where(p => p.codigo == id).FirstOrDefault();
@@ -78,6 +134,9 @@ namespace appProyectoDSWI_Tienda.Controllers
             return RedirectToAction("carritoCompras");
         }
 
+        // Compra de Productos
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult Comprar()
         {
             if (Session["carrito"] == null)
@@ -89,6 +148,9 @@ namespace appProyectoDSWI_Tienda.Controllers
             return View(carrito);
         }
 
+        // Eliminacion de Productos
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult eliminaProducto(int? id = null)
         {
             if (id == null) return RedirectToAction("carritoCompras");
@@ -98,7 +160,10 @@ namespace appProyectoDSWI_Tienda.Controllers
             Session["carrito"] = carrito;
             return RedirectToAction("Comprar");
         }
-        //Metodo para pagar
+
+        // Confirmación de Pago
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult Pago()
         {
             List<DetalleVenta> detalle = (List<DetalleVenta>)Session["carrito"];
@@ -110,17 +175,67 @@ namespace appProyectoDSWI_Tienda.Controllers
             ViewBag.mt = mt;
             return View(detalle);
         }
+
+        // Obtencion del Codigo de Venta
+        public int obtenercodigoVentaSQL()
+        {
+            int codven = 0;
+            SqlCommand com = new SqlCommand("SELECT IDENT_CURRENT('VENTA')", cn);
+            codven = Convert.ToInt32(com.ExecuteScalar());
+            return codven;
+        }
+
+        // Realización de Venta
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
         public ActionResult Final()
         {
             List<DetalleVenta> detalle = (List<DetalleVenta>)Session["carrito"];
             double mt = 0;
-            foreach (DetalleVenta dt in detalle)
+            Venta venta = new Venta();
+            venta.fechaventa = DateTime.Now;
+            venta.subtotalventa = detalle.Sum(x => x.precio * x.cantidad) * 0.84;
+            venta.ivaventa = venta.subtotalventa * 0.1904761904761905;
+            venta.totalventa = venta.subtotalventa + venta.ivaventa;
+            cn.Open();
+            try
             {
-                mt += dt.subtotal;
-
+                SqlCommand cmd = new SqlCommand("SP_REGISTROVENTA", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@FEC", venta.fechaventa);
+                cmd.Parameters.AddWithValue("@SUB", venta.subtotalventa);
+                cmd.Parameters.AddWithValue("@IVA", venta.ivaventa);
+                cmd.Parameters.AddWithValue("@TOT", venta.totalventa);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mensaje = ex.Message;
+            }
+            foreach (DetalleVenta detalleVenta in detalle)
+            {
+                venta.codventa = obtenercodigoVentaSQL();
+                SqlCommand cmd = new SqlCommand("SP_REGISTRODETALLEVENTA", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@VEN", venta.codventa);
+                cmd.Parameters.AddWithValue("@PRO", detalleVenta.codproducto);
+                cmd.Parameters.AddWithValue("@CAN", detalleVenta.cantidad);
+                cmd.Parameters.AddWithValue("@TOT", detalleVenta.subtotal);
+                cmd.ExecuteNonQuery();
+                mt += detalleVenta.subtotal;
             }
             ViewBag.mt = mt;
+            cn.Close();
             return View();
+        }
+
+        // Limpieza de Carrito de Compras
+        [Authorize]
+        [PermisosRol(Models.Rol.Cliente)]
+        public ActionResult limpiarCarrito()
+        {
+            Session["carrito"] = null;
+            return RedirectToAction("carritoCompras");
         }
     }
 }

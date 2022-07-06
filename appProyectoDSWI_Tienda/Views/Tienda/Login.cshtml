@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPrincipal2.cshtml";
+}
+
+<h2>INGRESO</h2>
+<div class="row" style="display: flex; align-items: center; justify-content: center;">
+    <form action="@Url.Action("Login","Tienda")" class="bg-info" style="padding: 15px; width: 300px; height: 220px; align-items: center; " method="post">
+        <div class="form-group" style="font-size: 15px">
+            <label>USUARIO : </label>
+            <input class="form-control" type="email" name="correo" />
+        </div>
+        <div class="form-group" style="font-size: 15px">
+            <label>CONTRASEÑA : </label>
+            <input class="form-control" type="password" name="clave" />
+        </div>
+        <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
+            <button type="submit" class="btn btn-success">INGRESAR</button>
+        </div>
+    </form>
+</div>

@@ -159,3 +159,10 @@ footer {
     height: 60px;
     border: 1px;
 }
+
+#botoncentral {
+    text-align: center;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+}

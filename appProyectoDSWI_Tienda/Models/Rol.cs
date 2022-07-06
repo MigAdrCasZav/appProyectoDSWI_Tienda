@@ -6,9 +6,9 @@ using System.Web;
 
 namespace appProyectoDSWI_Tienda.Models
 {
-    public class Rol
+    public enum Rol
     {
-        public int idRol { get; set; } 
-        public string nomRol { get; set; }
+        Administrador = 1,
+        Cliente = 2
     }
 }

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "SinAutorizacion";
+    Layout = "~/Views/Shared/_LayoutPrincipal2.cshtml";
+}
+
+<h2>@ViewBag.Message</h2>
+<br />
+<br />
+<section id="botoncentral" style="display: flex; align-items: center; justify-content: center;">
+    @Html.ActionLink("ACEPTAR", "Index", "Tienda", new { @class = "btn btn-success" })
+</section>
+

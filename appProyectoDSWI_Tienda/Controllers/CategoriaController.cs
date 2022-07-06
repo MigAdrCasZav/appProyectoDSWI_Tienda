@@ -8,9 +8,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using appProyectoDSWI_Tienda.Models;
+using appProyectoDSWI_Tienda.Permisos;
 
 namespace appProyectoDSWI_Tienda.Controllers
 {
+    [Authorize]
+    [PermisosRol(Models.Rol.Administrador)]
     public class CategoriaController : Controller
     {
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
