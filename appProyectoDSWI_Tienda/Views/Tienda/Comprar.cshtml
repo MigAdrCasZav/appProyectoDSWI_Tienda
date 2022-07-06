@@ -1,4 +1,4 @@
-﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Item>
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.DetalleVenta>
 
 @{
     ViewBag.Title = "Comprar";
@@ -15,4 +15,6 @@
     <section>
         @Html.ActionLink("< Retornar", "carritoCompras", null, new { @class = "btn btn-success" }) @Html.ActionLink("Pagar", "Pago", null, new { @class = "btn btn-danger" })
     </section>
+    <br />
+    <br />
 </section>

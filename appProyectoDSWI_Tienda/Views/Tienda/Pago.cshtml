@@ -1,4 +1,4 @@
-﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Item>
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.DetalleVenta>
 
 @{
     ViewBag.Title = "Pago";
@@ -18,4 +18,6 @@
             @Html.ActionLink("ACEPTAR", "Final", "", new { @class = "btn btn-success" })
         } @Html.Partial("_partialComprar") <div id="monto">MONTO TOTAL S/ @(((decimal)ViewBag.mt).ToString("0.00"))</div>
     </section>
+    <br />
+    <br />
 </section>

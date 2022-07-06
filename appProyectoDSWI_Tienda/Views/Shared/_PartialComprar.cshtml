@@ -1,4 +1,4 @@
-﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.Item>
+﻿@model IEnumerable<appProyectoDSWI_Tienda.Models.DetalleVenta>
 
 <style>
     .imgArtPeq {
@@ -12,10 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.codigo)
+            @Html.DisplayNameFor(model => model.codproducto)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fabricante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categoria)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.precio)
@@ -31,10 +37,16 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.codigo)
+                @Html.DisplayFor(modelItem => item.codproducto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fabricante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoria)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.precio)
@@ -49,7 +61,7 @@
                 <img class="imgArtPeq" src=@Url.Content(item.foto) />
             </td>
             <td>
-                @Html.ActionLink("ELIMINAR", "eliminaProducto", new { id = item.codigo },
+                @Html.ActionLink("ELIMINAR", "eliminaProducto", new { id = item.codproducto },
            new { @class = "btn btn-success" })
             </td>
         </tr>

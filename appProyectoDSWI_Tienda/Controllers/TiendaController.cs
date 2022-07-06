@@ -16,25 +16,27 @@ namespace appProyectoDSWI_Tienda.Controllers
         // GET: Tienda
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
 
-        List<ProductoB> ListProductos()
+        List<Producto> ListProductos()
         {
-            List<ProductoB> aProductoBs = new List<ProductoB>();
+            List<Producto> aProductos = new List<Producto>();
             SqlCommand cmd = new SqlCommand("SP_LISTAPARCIALPRODUCTO", cn);
             cn.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                aProductoBs.Add(new ProductoB()
+                aProductos.Add(new Producto()
                 {
                     codigo = int.Parse(dr[0].ToString()),
                     nombre = dr[1].ToString(),
-                    precio = double.Parse(dr[2].ToString()),
-                    foto = dr[3].ToString()
+                    fabricante = dr[2].ToString(),
+                    categoria = dr[3].ToString(),
+                    precio = double.Parse(dr[4].ToString()),
+                    foto = dr[5].ToString()
                 });
             }
             dr.Close();
             cn.Close();
-            return aProductoBs;
+            return aProductos;
         }
 
         public ActionResult Index()
@@ -46,30 +48,32 @@ namespace appProyectoDSWI_Tienda.Controllers
         {
             if (Session["carrito"] == null)
             {
-                Session["carrito"] = new List<Item>();
+                Session["carrito"] = new List<DetalleVenta>();
             }
             return View(ListProductos());
         }
 
         public ActionResult seleccionaProducto(int id)
         {
-            ProductoB objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
+            Producto objP = ListProductos().Where(a => a.codigo == id).FirstOrDefault();
             return View(objP);
         }
 
         public ActionResult agregarProducto(int id, int cant = 0)
         {
             var miProducto = ListProductos().Where(p => p.codigo == id).FirstOrDefault();
-            Item objI = new Item()
+            DetalleVenta objD = new DetalleVenta()
             {
-                codigo = miProducto.codigo,
+                codproducto = miProducto.codigo,
                 nombre = miProducto.nombre,
+                fabricante = miProducto.fabricante,
+                categoria = miProducto.categoria,
                 precio = miProducto.precio,
                 cantidad = cant,
                 foto = miProducto.foto
             };
-            var miCarrito = (List<Item>)Session["carrito"];
-            miCarrito.Add(objI);
+            var miCarrito = (List<DetalleVenta>)Session["carrito"];
+            miCarrito.Add(objD);
             Session["carrito"] = miCarrito;
             return RedirectToAction("carritoCompras");
         }
@@ -80,7 +84,7 @@ namespace appProyectoDSWI_Tienda.Controllers
             {
                 return RedirectToAction("carritoCompras");
             }
-            var carrito = (List<Item>)Session["carrito"];
+            var carrito = (List<DetalleVenta>)Session["carrito"];
             ViewBag.monto = carrito.Sum(p => p.subtotal);
             return View(carrito);
         }
@@ -88,8 +92,8 @@ namespace appProyectoDSWI_Tienda.Controllers
         public ActionResult eliminaProducto(int? id = null)
         {
             if (id == null) return RedirectToAction("carritoCompras");
-            var carrito = (List<Item>)Session["carrito"];
-            var item = carrito.Where(i => i.codigo == id).FirstOrDefault();
+            var carrito = (List<DetalleVenta>)Session["carrito"];
+            var item = carrito.Where(i => i.codproducto == id).FirstOrDefault();
             carrito.Remove(item);
             Session["carrito"] = carrito;
             return RedirectToAction("Comprar");
@@ -97,22 +101,22 @@ namespace appProyectoDSWI_Tienda.Controllers
         //Metodo para pagar
         public ActionResult Pago()
         {
-            List<Item> detalle = (List<Item>)Session["carrito"];
+            List<DetalleVenta> detalle = (List<DetalleVenta>)Session["carrito"];
             double mt = 0;
-            foreach (Item it in detalle)
+            foreach (DetalleVenta dt in detalle)
             {
-                mt += it.subtotal;
+                mt += dt.subtotal;
             }
             ViewBag.mt = mt;
             return View(detalle);
         }
         public ActionResult Final()
         {
-            List<Item> detalle = (List<Item>)Session["carrito"];
+            List<DetalleVenta> detalle = (List<DetalleVenta>)Session["carrito"];
             double mt = 0;
-            foreach (Item it in detalle)
+            foreach (DetalleVenta dt in detalle)
             {
-                mt += it.subtotal;
+                mt += dt.subtotal;
 
             }
             ViewBag.mt = mt;
